@@ -13,6 +13,7 @@
   "homepage": "https://github.com/hunvreus/pi-hosts#readme",
   "keywords": [
     "pi",
+    "pi-package",
     "pi-extension",
     "ssh",
     "remote-exec",
