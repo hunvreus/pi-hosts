@@ -1,0 +1,52 @@
+{
+  "name": "pi-hosts",
+  "version": "0.1.0",
+  "description": "Run commands on remote hosts from Pi.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hunvreus/pi-hosts.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hunvreus/pi-hosts/issues"
+  },
+  "homepage": "https://github.com/hunvreus/pi-hosts#readme",
+  "keywords": [
+    "pi",
+    "pi-extension",
+    "ssh",
+    "remote-exec",
+    "host-inventory"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "packageManager": "pnpm@10.17.1",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "prepack": "pnpm build",
+    "test": "pnpm build && node test/smoke.mjs"
+  },
+  "pi": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "dependencies": {
+    "@mariozechner/pi-coding-agent": "0.54.2",
+    "@sinclair/typebox": "^0.34.41"
+  },
+  "devDependencies": {
+    "@types/node": "25.3.0",
+    "tsx": "4.21.0",
+    "typescript": "5.9.3"
+  }
+}
