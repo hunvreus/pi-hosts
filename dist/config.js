@@ -38,6 +38,7 @@ const defaults = {
                 "ps",
                 "pwd",
                 "sed",
+                "set",
                 "sort",
                 "ss",
                 "stat",

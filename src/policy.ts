@@ -36,6 +36,7 @@ const networkCommands = new Set(["curl", "wget", "nc", "netcat", "scp", "rsync",
 const shellCommands = new Set(["sh", "bash", "zsh", "fish", "ksh", "dash", "python", "python3", "perl", "ruby", "node"]);
 const sensitiveReaders = new Set(["cat", "grep", "head", "tail", "sed", "awk", "less", "more"]);
 const operationalCommands = new Set(["systemctl", "service", "docker", "podman", "kubectl", "helm"]);
+const shellKeywords = new Set(["if", "then", "else", "elif", "fi", "for", "do", "done", "while", "case", "esac"]);
 const readOnlyFlags = new Set(["--help", "-h", "--version", "-v", "-V", "version", "help"]);
 const readOnlySubcommands = new Set([
   "config",
@@ -108,6 +109,11 @@ function tokenize(input: string): { tokens: Token[]; error?: string; substitutio
     }
     if (!quote && char === "$" && next === "(") substitution = true;
     if (!quote && char === "`") substitution = true;
+    if (!quote && char === "\n") {
+      pushWord();
+      tokens.push({ type: "op", value: ";" });
+      continue;
+    }
     if (!quote && /\s/.test(char)) {
       pushWord();
       continue;
@@ -139,9 +145,16 @@ function tokenize(input: string): { tokens: Token[]; error?: string; substitutio
 function commandSegments(tokens: Token[]): string[][] {
   const segments: string[][] = [];
   let current: string[] = [];
-  for (const token of tokens) {
+  for (let i = 0; i < tokens.length; i += 1) {
+    const token = tokens[i];
+    if (!token) continue;
     if (token.type === "word") {
       current.push(token.value);
+      continue;
+    }
+    const previous = tokens[i - 1];
+    const next = tokens[i + 1];
+    if (token.value === "&" && previous?.type === "op" && (previous.value === ">" || previous.value === ">>") && next?.type === "word") {
       continue;
     }
     if (token.value === "|" || token.value === ";" || token.value === "&&" || token.value === "||" || token.value === "&") {
@@ -164,13 +177,14 @@ function isAssignment(value: string): boolean {
 function commandName(segment: string[]): string | null {
   for (const word of segment) {
     if (isAssignment(word)) continue;
+    if (shellKeywords.has(unquote(word))) continue;
     return basename(unquote(word));
   }
   return null;
 }
 
 function commandArgs(segment: string[]): string[] {
-  const index = segment.findIndex((word) => !isAssignment(word));
+  const index = segment.findIndex((word) => !isAssignment(word) && !shellKeywords.has(unquote(word)));
   return index < 0 ? [] : segment.slice(index + 1).map(unquote);
 }
 
@@ -228,8 +242,10 @@ function sudoInnerSegment(args: string[]): string[] {
 }
 
 function classifySegment(segment: string[], policy: PolicyConfig, reasons: string[]): RiskLevel {
+  const first = unquote(segment[0] ?? "");
+  if (first === "for" || first === "while" || first === "case") return "safe";
   const name = commandName(segment);
-  if (!name) return "caution";
+  if (!name) return "safe";
   const args = commandArgs(segment);
   const subcommand = args.find((arg) => !arg.startsWith("-"));
 
@@ -289,9 +305,13 @@ function hasOutputRedirect(tokens: Token[]): boolean {
     if (token?.type !== "op" || (token.value !== ">" && token.value !== ">>")) continue;
     const previous = tokens[i - 1];
     const next = tokens[i + 1];
+    const after = tokens[i + 2];
+    const beforePrevious = tokens[i - 2];
     const redirectsFd = previous?.type === "word" && /^\d+$/.test(previous.value);
     const target = next?.type === "word" ? unquote(next.value) : "";
-    if (redirectsFd && target === "/dev/null") continue;
+    const mergedFd = next?.type === "op" && next.value === "&" && after?.type === "word" && /^\d+$/.test(after.value);
+    if (target === "/dev/null" || mergedFd) continue;
+    if (target === "&" && previous?.type === "word" && /^\d+$/.test(previous.value) && beforePrevious?.type === "op") continue;
     return true;
   }
   return false;

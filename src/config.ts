@@ -61,6 +61,7 @@ const defaults: RuntimeConfig = {
         "ps",
         "pwd",
         "sed",
+        "set",
         "sort",
         "ss",
         "stat",

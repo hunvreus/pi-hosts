@@ -96,6 +96,21 @@ Host *
     assess(
       [
         "set -e",
+        "found=0",
+        "if command -v devpush >/dev/null 2>&1; then echo \"binary: $(command -v devpush)\"; found=1; fi",
+        "for d in /opt/devpush /srv/devpush /var/www/devpush ~/devpush; do [ -d \"$d\" ] && echo \"dir: $d\" && found=1; done",
+        "if sudo -n docker ps -a --format '{{.Names}} {{.Image}}' 2>/dev/null | grep -i 'devpush' ; then found=1; fi",
+        "if [ $found -eq 0 ]; then echo \"not-found\"; fi",
+      ].join("\n"),
+      1,
+      policy,
+    ).decision,
+    "run",
+  );
+  assert.equal(
+    assess(
+      [
+        "set -e",
         "printf '== host ==\\n'; hostnamectl --static || hostname",
         "printf '\\n== uptime ==\\n'; uptime",
         "printf '\\n== load/mem ==\\n'; free -h",
