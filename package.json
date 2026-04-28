@@ -1,6 +1,6 @@
 {
   "name": "pi-hosts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Run commands on remote hosts from Pi.",
   "license": "MIT",
   "repository": {

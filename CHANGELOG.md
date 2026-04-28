@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-04-28
+
+### Fixed
+
+- Improved command policy parsing for read-only shell control flow, newline-separated scripts, and benign redirections like `>/dev/null` and `2>&1`.
+
 ## [0.1.0] - 2026-04-28
 
 ### Added
