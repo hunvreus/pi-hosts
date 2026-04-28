@@ -1,3 +1,12 @@
 node_modules/
 *.tgz
 .DS_Store
+
+.env
+.env.*
+!.env.example
+
+.pi/
+coverage/
+.nyc_output/
+*.log
