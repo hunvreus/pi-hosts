@@ -1,6 +1,6 @@
 # pi-hosts
 
-Run commands on remote hosts from Pi.
+Give the Pi coding agent access to your servers.
 
 `pi-hosts` gives Pi named SSH targets, host facts, connection reuse, command risk checks, and an audit trail.
 
