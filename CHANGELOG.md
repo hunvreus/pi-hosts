@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-04-29
+
+### Fixed
+
+- Added the `pi-package` npm keyword required for pi.dev package gallery discovery.
+- Removed the Pi coding agent package from runtime dependencies because it is only used for TypeScript types.
+
 ## [0.1.1] - 2026-04-28
 
 ### Fixed

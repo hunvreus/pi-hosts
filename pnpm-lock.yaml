@@ -8,13 +8,13 @@ importers:
 
   .:
     dependencies:
-      '@mariozechner/pi-coding-agent':
-        specifier: 0.54.2
-        version: 0.54.2(ws@8.20.0)(zod@3.25.76)
       '@sinclair/typebox':
         specifier: ^0.34.41
         version: 0.34.49
     devDependencies:
+      '@mariozechner/pi-coding-agent':
+        specifier: 0.54.2
+        version: 0.54.2(ws@8.20.0)(zod@3.25.76)
       '@types/node':
         specifier: 25.3.0
         version: 25.3.0

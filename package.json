@@ -1,6 +1,6 @@
 {
   "name": "pi-hosts",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run commands on remote hosts from Pi.",
   "license": "MIT",
   "repository": {
@@ -42,10 +42,10 @@
     ]
   },
   "dependencies": {
-    "@mariozechner/pi-coding-agent": "0.54.2",
     "@sinclair/typebox": "^0.34.41"
   },
   "devDependencies": {
+    "@mariozechner/pi-coding-agent": "0.54.2",
     "@types/node": "25.3.0",
     "tsx": "4.21.0",
     "typescript": "5.9.3"
