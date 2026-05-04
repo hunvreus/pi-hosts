@@ -209,7 +209,7 @@ export function registerTools(pi, state, config) {
                     truncated: result.truncated,
                     timedOut: result.timedOut,
                 });
-                blocks.push([`## ${host.name}`, `exit=${result.exitCode}`, result.stdout.trim(), result.stderr.trim() ? `stderr:\n${result.stderr.trim()}` : ""]
+                blocks.push([`## ${host.name}`, `$ ${params.command}`, `exit=${result.exitCode}`, result.stdout.trim(), result.stderr.trim() ? `stderr:\n${result.stderr.trim()}` : ""]
                     .filter(Boolean)
                     .join("\n"));
             }
