@@ -114,6 +114,7 @@ export function runSsh(host: ResolvedHost, command: string, options: ExecOptions
       const err = Buffer.concat(stderr.chunks).toString("utf8");
       resolve({
         host: host.name,
+        command,
         exitCode: code ?? (timedOut ? 124 : 1),
         stdout: stdout.truncated ? `${out}\n...truncated...` : out,
         stderr: stderr.truncated ? `${err}\n...truncated...` : err,
