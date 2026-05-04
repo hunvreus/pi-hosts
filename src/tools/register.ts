@@ -230,7 +230,7 @@ export function registerTools(pi: ExtensionAPI, state: TurnState, config: ToolCo
           timedOut: result.timedOut,
         });
         blocks.push(
-          [`## ${host.name}`, `exit=${result.exitCode}`, result.stdout.trim(), result.stderr.trim() ? `stderr:\n${result.stderr.trim()}` : ""]
+          [`## ${host.name}`, `$ ${params.command}`, `exit=${result.exitCode}`, result.stdout.trim(), result.stderr.trim() ? `stderr:\n${result.stderr.trim()}` : ""]
             .filter(Boolean)
             .join("\n"),
         );

@@ -78,6 +78,7 @@ export type AuditEntry = {
 
 export type ExecResult = {
   host: string;
+  command: string;
   exitCode: number;
   stdout: string;
   stderr: string;
