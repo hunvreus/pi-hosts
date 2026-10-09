@@ -41,10 +41,11 @@
       "./dist/index.js"
     ]
   },
-  "dependencies": {
-    "@sinclair/typebox": "^0.34.41"
+  "peerDependencies": {
+    "@sinclair/typebox": "*"
   },
   "devDependencies": {
+    "@sinclair/typebox": "^0.34.41",
     "@mariozechner/pi-coding-agent": "0.54.2",
     "@types/node": "25.3.0",
     "tsx": "4.21.0",

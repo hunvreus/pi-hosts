@@ -7,14 +7,13 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@sinclair/typebox':
-        specifier: ^0.34.41
-        version: 0.34.49
     devDependencies:
       '@mariozechner/pi-coding-agent':
         specifier: 0.54.2
         version: 0.54.2(ws@8.20.0)(zod@3.25.76)
+      '@sinclair/typebox':
+        specifier: ^0.34.41
+        version: 0.34.49
       '@types/node':
         specifier: 25.3.0
         version: 25.3.0
@@ -423,20 +422,24 @@ packages:
   '@mariozechner/pi-agent-core@0.54.2':
     resolution: {integrity: sha512-dSg5tl3SGdrTFeTxfifvHjZ39M8k4jQ0ogTDtVeP7Pi3A3Whw4W1o6pYzTjX285CLxxqKiJS6MkwoElQHFwH1A==}
     engines: {node: '>=20.0.0'}
+    deprecated: please use @earendil-works/pi-agent-core instead going forward
 
   '@mariozechner/pi-ai@0.54.2':
     resolution: {integrity: sha512-QKQV8iT7afwdaOiLDPTPyQcsGw4ulxBjAI0GvgvowAuqy9UbDeKFSdQYLmjVt7CtnJD1Z8zMjQQ4SLigdZ6dRQ==}
     engines: {node: '>=20.0.0'}
+    deprecated: please use @earendil-works/pi-ai instead going forward
     hasBin: true
 
   '@mariozechner/pi-coding-agent@0.54.2':
     resolution: {integrity: sha512-m4xozDZ7GdB9iXy8/ykaLZ7aCcINxOPhA9WYY+zd6Mb8DWoeo7YmXNBAfemACGlAAGsUW2cSKI66tboczA2Uag==}
     engines: {node: '>=20.0.0'}
+    deprecated: please use @earendil-works/pi-coding-agent instead going forward
     hasBin: true
 
   '@mariozechner/pi-tui@0.54.2':
     resolution: {integrity: sha512-ekk7x69qvESE7NMRO+VIduVV1T/kH+Ghroh8yqZ1y0IF4U85nzZ4jwV8JECuiGUvtFE0MMwWfJc9KdEur4xF6A==}
     engines: {node: '>=20.0.0'}
+    deprecated: please use @earendil-works/pi-tui instead going forward
 
   '@mistralai/mistralai@1.10.0':
     resolution: {integrity: sha512-tdIgWs4Le8vpvPiUEWne6tK0qbVc+jMenujnvTqOjogrJUsCSQhus0tHTU1avDDh5//Rq2dFgP9mWRAdIEoBqg==}
